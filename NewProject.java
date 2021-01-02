@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.awt.Color;
 import java.awt.Component;
+
 public class NewProject extends JFrame {
 
 	private JPanel contentPane;
@@ -24,6 +25,7 @@ public class NewProject extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Something");
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -70,12 +72,9 @@ public class NewProject extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String projectName = textPane.getText();
-				File projectFolder = new File("C:\\Jibberish\\" + projectName);
-				File projectStart = new File("C:\\Jibberish\\" + projectName + "\\" + "Project" + "\\" + "Chapter 1");
-				File projectPeople = new File("C:\\Jibberish\\" + projectName + "\\" + "People");
-				File projectPlaces = new File("C:\\Jibberish\\" + projectName + "\\" + "Places");
-				File projectThings = new File("C:\\Jibberish\\" + projectName + "\\" + "Things");
-				File projectBody = new File("C:\\Jibberish\\" + projectName + "\\" + "Project" + "\\" + "Chapter 1" + "\\"+ "Snippet 1.rtf");
+				File projectFolder = new File("Jibberish" + File.separator + projectName);
+			
+				File projectBody = new File("Jibberish" + File.separator + projectName + File.separator + "Snippet 1.txt");
 				
 				try {
 					if(projectFolder.exists()) {
@@ -83,17 +82,17 @@ public class NewProject extends JFrame {
 						lblProjectAlreadyExists.setVisible(true);
 					}else{
 						projectFolder.mkdirs();
-						projectStart.mkdirs();
+						projectBody.getParentFile().mkdirs();
+						
 						projectBody.createNewFile();
-						projectPlaces.mkdirs();
-						projectPeople.mkdirs();
-						projectThings.mkdirs();
+					
 						System.out.println("Project created.");	
 						File currentProject = projectBody;
-						workSpace ws = new workSpace();
-						ws.setVisible(true);
-						ws.setExtendedState(JFrame.MAXIMIZED_BOTH);
-						ws.setTitle(projectName + " - JIBBERISH");
+						Jibberish jibberish = new Jibberish(projectName);
+						jibberish.setVisible(true);
+						jibberish.setExtendedState(JFrame.MAXIMIZED_BOTH);
+						jibberish.setTitle(projectName + " - Jibberish");
+						
 						
 						dispose();			
 						
@@ -118,7 +117,9 @@ public class NewProject extends JFrame {
 		JButton btnNewButton_1 = new JButton("Cancel");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
 				dispose();
+				
 		} }
 			);
 		btnNewButton_1.setFont(new Font("Kristen ITC", Font.BOLD, 11));
