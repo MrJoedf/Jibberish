@@ -89,8 +89,11 @@ public class newSnippet {
 		btnNewSnippet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String snippetName = snipName.getText();
+				
 				String rootString = root.getPath().toString();
+				//uses substring since uses the file directly results in formatting problems
 				rootString = rootString.substring(1, rootString.length()-1);
+				
 				File newSnippet = new File(rootString+File.separator+snippetName+".txt");
 				System.out.println(rootString);
 				
