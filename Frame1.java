@@ -15,13 +15,12 @@ import java.io.File;
 import javax.swing.JFileChooser;
 
 public class Frame1 {
-
-	private JFrame frmJibberish;
+    
+	JFrame frmJibberish;
 	/**
 	 * Launch the application.
 	 */		
-	
-	public static void main(String[] args) {
+		public static void main(String[] args) {
 		System.setProperty("apple.laf.useScreenMenuBar", "true");
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Name");
 		EventQueue.invokeLater(new Runnable() {
@@ -49,18 +48,19 @@ public class Frame1 {
 	 */
 	private void initialize() {
 		frmJibberish = new JFrame();
+		frmJibberish.setTitle("Jibberish");
 		frmJibberish.setResizable(false);
 		frmJibberish.getContentPane().setFont(new Font("Kristen ITC", Font.BOLD, 28));
 		frmJibberish.getContentPane().setLayout(null);
 		
-		JLabel lblJibberish = new JLabel("JIBBERISH v.01");
+		JLabel lblJibberish = new JLabel("JIBBERISH v.02");
 		lblJibberish.setBounds(0, 0, 476, 51);
 		lblJibberish.setHorizontalAlignment(SwingConstants.CENTER);
 		lblJibberish.setForeground(new Color(50, 205, 50));
 		lblJibberish.setFont(new Font("Kristen ITC", Font.BOLD, 28));
 		frmJibberish.getContentPane().add(lblJibberish);
 		
-		JLabel lblPropertyOfJemsoft = new JLabel("Property of JEMSOFT and Jordan Foster (2017)");
+		JLabel lblPropertyOfJemsoft = new JLabel("Property of JEMSOFT and Joe Foster (2017-2021)");
 		lblPropertyOfJemsoft.setBounds(10, 151, 476, 14);
 		frmJibberish.getContentPane().add(lblPropertyOfJemsoft);
 		
@@ -68,6 +68,7 @@ public class Frame1 {
 		btnNewProject.setLocation(10, 68);
 		btnNewProject.setFont(new Font("Kristen ITC", Font.BOLD, 14));
 		btnNewProject.setSize(228, 61);
+		
 		btnNewProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				NewProject newProject = new NewProject();
@@ -89,14 +90,11 @@ public class Frame1 {
 		btnExistingProject.setFont(new Font("Kristen ITC", Font.BOLD, 14));
 		btnExistingProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser existingProject = new JFileChooser("C://Jibberish//");
-					existingProject.setDialogTitle("Open Existing Project");
-					existingProject.showOpenDialog(btnExistingProject);
-					File currentProject = existingProject.getSelectedFile();
+				new java.awt.FileDialog((java.awt.Frame) null).setVisible(true);
 			}
 		});
 		frmJibberish.getContentPane().add(btnExistingProject);
-		frmJibberish.setTitle("JIBBERISH");
+		frmJibberish.setTitle("Jibberish");
 		frmJibberish.setBounds(100, 100, 504, 212);
 		frmJibberish.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
