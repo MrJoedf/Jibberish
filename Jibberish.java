@@ -20,6 +20,8 @@ import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -29,6 +31,8 @@ import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
@@ -36,7 +40,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.UIManager;
-
+import java.util.Scanner;
 public class Jibberish extends JFrame {
 
 	private JPanel contentPane;
@@ -157,6 +161,42 @@ public class Jibberish extends JFrame {
 		contentPane.add(sp);
 		editorPane_1.setBounds(450, 39, 640, 860);
 		editorPane_1.setFont(new Font("Arial", Font.PLAIN, 20));
+		/*
+		draftTree.addTreeSelectionListener(new TreeSelectionListener(){
+			public void valueChanged(TreeSelectionEvent e) {
+		        TreePath tp = draftTree.getSelectionPath();
+		        
+		        String rootString = tp.getPath().toString();
+		        String outString;
+		        
+				rootString = rootString.substring(1, rootString.length()-1);
+				
+				
+				File tp1 = new File(rootString);
+				Scanner in;
+				try {
+					in = new Scanner(new FileReader(rootString)); 
+					if (tp != null) {
+		        	StringBuilder sb = new StringBuilder();
+		        	
+					while(in.hasNext()) {
+					    sb.append(in.next());
+					}
+					in.close();
+					outString = sb.toString();
+					
+					editorPane_1.setText(outString);
+					}
+			
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}}
+		       
+		});*/
+			
+			
+		
 		
 		JButton newSnippet = new JButton("New Snippet");
 		
@@ -229,6 +269,8 @@ public class Jibberish extends JFrame {
 				return null;
 			}
 		});
+		
+		
 			
 		
 	}
@@ -295,6 +337,8 @@ public Jibberish(){
 		
 		
 		
+		
+		
 		JEditorPane editorPane_1 = new JEditorPane();
 		JScrollPane sp = new JScrollPane(editorPane_1);
 		
@@ -306,6 +350,7 @@ public Jibberish(){
 		sp.setBounds(350,39,720,600);
 		contentPane.add(sp);
 		editorPane_1.setBounds(350, 39, 720, 600);
+		
 		
 		
 		
