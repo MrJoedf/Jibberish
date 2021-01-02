@@ -19,6 +19,7 @@ import javax.swing.JEditorPane;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -70,6 +71,8 @@ public class Jibberish extends JFrame {
 	private DefaultMutableTreeNode root;
 
     private DefaultTreeModel treeModel;
+    
+    public String rootPath;
     
     private void createChildren(File fileRoot, 
             DefaultMutableTreeNode node) {
@@ -194,6 +197,32 @@ public class Jibberish extends JFrame {
 				}}
 		       
 		});*/
+		draftTree.addTreeSelectionListener(new TreeSelectionListener() {
+
+            public void valueChanged(TreeSelectionEvent e) {
+               
+                rootPath=draftTree.getLastSelectedPathComponent().toString();
+               // rootPath=rootPath.substring(1, rootPath.length()-1);
+               // if (selection != null) {
+                  // String key = (String)selection.getUserObject();
+                   // System.out.println("Key: "+key);*/
+                    System.out.println(rootPath);
+                    if(draftTree.getSelectionPath()!=null) {
+                		File file = new File(rootPath);
+                		if(file.isFile()) {
+                			try (BufferedReader reader = new BufferedReader(new FileReader(new File(rootPath)))) {
+                	            editorPane_1.read(reader, "File");
+                	        } catch (IOException exp) {
+                	            exp.printStackTrace();
+                	        }
+                		}
+                	
+                }
+               // } else {
+                    //descriptionLabel.setText(NOTHING_SELECTED);
+              //  }
+            }
+        });
 			
 			
 		
@@ -216,18 +245,15 @@ public class Jibberish extends JFrame {
 		
 		mntmSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			for(File file : fileroot.listFiles()) {
-				try{
-					
+			File file = new File(rootPath);
+			try {
 					FileWriter output = new FileWriter(file);
 					output.write(editorPane_1.getText());
 					output.close();
 				}catch (IOException e1){
 					e1.printStackTrace();
-				}	
+				}		
 				
-				
-			}
 			}
 			private Object File(String string) {
 				// TODO Auto-generated method stub
@@ -239,19 +265,19 @@ public class Jibberish extends JFrame {
 		newSnippet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				//fix this, man
 				
+				//TreePath tp = draftTree.getLastSelectedPathComponent();
 				
-				TreePath tp = draftTree.getSelectionPath();
+				//if(tp==null) {return;}
 				
-				if(tp==null) {return;}
-				
-				String snipPath = tp.toString();
+				String snipPath = draftTree.getLastSelectedPathComponent().toString();
 				
 				File snipRoot= new File(snipPath);
 				
-				while(snipRoot.isDirectory()) {
+				/*while(snipRoot.isDirectory()) {
 					snipRoot = snipRoot.getParentFile();
-				}
+				}*/
 				
 				System.out.println(snipRoot);
 				newSnippet snip = new newSnippet(snipRoot, draftTree);	
