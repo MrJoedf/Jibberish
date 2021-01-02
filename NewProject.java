@@ -45,8 +45,10 @@ public class NewProject extends JFrame {
 	public NewProject() {
 		setResizable(false);
 		setTitle("Create a New Project");
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 359, 137);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -58,13 +60,16 @@ public class NewProject extends JFrame {
 		
 		JLabel lblProjectName = new JLabel("Project Name:");
 		lblProjectName.setFont(new Font("Kristen ITC", Font.BOLD, 14));
+		
 		lblProjectName.setBounds(10, 28, 124, 20);
 		contentPane.add(lblProjectName);
 		
 		JLabel lblProjectAlreadyExists = new JLabel("PROJECT ALREADY EXISTS");
 		lblProjectAlreadyExists.setFont(new Font("Segoe UI", Font.BOLD, 11));
+		
 		lblProjectAlreadyExists.setForeground(Color.RED);
 		lblProjectAlreadyExists.setBounds(131, 85, 187, 23);
+		
 		lblProjectAlreadyExists.setVisible(false);
 		contentPane.add(lblProjectAlreadyExists);
 
@@ -88,8 +93,10 @@ public class NewProject extends JFrame {
 					
 						System.out.println("Project created.");	
 						File currentProject = projectBody;
+						
 						Jibberish jibberish = new Jibberish(projectName);
 						jibberish.setVisible(true);
+						
 						jibberish.setExtendedState(JFrame.MAXIMIZED_BOTH);
 						jibberish.setTitle(projectName + " - Jibberish");
 						
