@@ -1,7 +1,21 @@
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
-import java.awt.*;
-import java.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JMenuBar;
+import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
+import javax.swing.UIManager;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.io.File;
+import java.awt.Color;
+import java.awt.Component;
 
 public class NewProject extends JFrame {
 
@@ -80,7 +94,7 @@ public class NewProject extends JFrame {
 						System.out.println("Project created.");	
 						File currentProject = projectBody;
 						
-						Jibberish jibberish = new Jibberish(projectName);
+						Jibberish jibberish = new Jibberish(projectName, true);
 						jibberish.setVisible(true);
 						
 						jibberish.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -92,8 +106,13 @@ public class NewProject extends JFrame {
 					}
 				} catch (Exception w) {
 					w.printStackTrace();
-				}		
+				}
+				
+						
 			}											
+					
+						
+		
 		}
 				
 			
@@ -113,7 +132,6 @@ public class NewProject extends JFrame {
 		btnNewButton_1.setFont(new Font("Kristen ITC", Font.BOLD, 11));
 		btnNewButton_1.setBounds(130, 59, 89, 23);
 		contentPane.add(btnNewButton_1);
-		
 
 	
 	}}	
