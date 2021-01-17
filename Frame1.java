@@ -21,9 +21,9 @@ public class Frame1 {
 	 * Launch the application.
 	 */		
 		public static void main(String[] args) {
-		System.setProperty("apple.laf.useScreenMenuBar", "true");
-		System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Name");
-		EventQueue.invokeLater(new Runnable() {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+			System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Name");
+			EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -47,16 +47,21 @@ public class Frame1 {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frmJibberish = new JFrame();
 		frmJibberish.setTitle("Jibberish");
 		frmJibberish.setResizable(false);
+		
 		frmJibberish.getContentPane().setFont(new Font("Kristen ITC", Font.BOLD, 28));
 		frmJibberish.getContentPane().setLayout(null);
 		
+		
 		JLabel lblJibberish = new JLabel("JIBBERISH v.02");
 		lblJibberish.setBounds(0, 0, 476, 51);
+		
 		lblJibberish.setHorizontalAlignment(SwingConstants.CENTER);
 		lblJibberish.setForeground(new Color(50, 205, 50));
+		
 		lblJibberish.setFont(new Font("Kristen ITC", Font.BOLD, 28));
 		frmJibberish.getContentPane().add(lblJibberish);
 		
@@ -66,6 +71,7 @@ public class Frame1 {
 		
 		JButton btnNewProject = new JButton("NEW PROJECT");
 		btnNewProject.setLocation(10, 68);
+		
 		btnNewProject.setFont(new Font("Kristen ITC", Font.BOLD, 14));
 		btnNewProject.setSize(228, 61);
 		
@@ -73,6 +79,7 @@ public class Frame1 {
 			public void actionPerformed(ActionEvent e) {
 				NewProject newProject = new NewProject();
 				newProject.setVisible(true);
+				
 				JibberishFolder jibberishFolder = new JibberishFolder();
 				jibberishFolder.createFolder();
 				
@@ -83,18 +90,42 @@ public class Frame1 {
 				return null;
 			}
 		});
+		
+	
+		
 		frmJibberish.getContentPane().add(btnNewProject);
 		
 		JButton btnExistingProject = new JButton("EXISTING PROJECT");
 		btnExistingProject.setBounds(263, 68, 213, 61);
+		
 		btnExistingProject.setFont(new Font("Kristen ITC", Font.BOLD, 14));
+		
 		btnExistingProject.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new java.awt.FileDialog((java.awt.Frame) null).setVisible(true);
+				 JFileChooser chooser = new JFileChooser();
+				    chooser.setCurrentDirectory(new java.io.File("Jibberish"));
+				    chooser.setDialogTitle("Choose a project folder: ");
+				    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				    chooser.setAcceptAllFileFilterUsed(false);
+
+				    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+				      System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
+				      System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
+				    } else {
+				      System.out.println("No Selection ");
+				    }
+				
+				    String pDirectory = chooser.getSelectedFile().toString();
+				    
+				    Jibberish jibberish = new Jibberish(pDirectory, false);
+				    jibberish.setVisible(true);
+				    jibberish.setExtendedState(JFrame.MAXIMIZED_BOTH);
+				    jibberish.setTitle(pDirectory);
 			}
 		});
 		frmJibberish.getContentPane().add(btnExistingProject);
 		frmJibberish.setTitle("Jibberish");
+		
 		frmJibberish.setBounds(100, 100, 504, 212);
 		frmJibberish.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
