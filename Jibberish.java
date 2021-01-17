@@ -74,6 +74,8 @@ public class Jibberish extends JFrame {
     
     public String rootPath;
     
+    boolean nightMode;
+    
     private void createChildren(File fileRoot, 
             DefaultMutableTreeNode node) {
         File[] files = fileRoot.listFiles();
@@ -82,7 +84,10 @@ public class Jibberish extends JFrame {
         for (File file : files) {
             DefaultMutableTreeNode childNode = new DefaultMutableTreeNode(file);
             node.add(childNode);
-            if (file.isDirectory()) {
+            
+           
+            
+           if (file.isDirectory()) {
                 createChildren(file, childNode);
             }
         }
@@ -90,7 +95,8 @@ public class Jibberish extends JFrame {
 
 
     
-	public Jibberish(String projectName){
+	public Jibberish(String projectName, boolean newProject){
+		nightMode=false;
 		
 		setTitle(projectName + " - Jibberish");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,12 +117,14 @@ public class Jibberish extends JFrame {
 		JMenuItem mntmExport = new JMenuItem("Export");
 		mnNewMenu.add(mntmExport);
 		
+		JMenuItem nightModeSwitch = new JMenuItem("Dark Mode");
+		mnNewMenu.add(nightModeSwitch);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 		
 		
 		Label label = new Label("PROJECT");
@@ -125,11 +133,16 @@ public class Jibberish extends JFrame {
 		contentPane.add(label);
 		
 		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane_1.setBounds(10, 67, 250, 400);
+		tabbedPane_1.setBounds(10, 67, 300, 400);
 		contentPane.add(tabbedPane_1);
 		
+		File fileroot;
 		
-		File fileroot = new File("Jibberish"+File.separator+projectName);
+		if(newProject) {
+			 fileroot = new File("Jibberish"+File.separator+projectName);
+		}else{
+			 fileroot=new File(projectName);
+		}
 		root = new DefaultMutableTreeNode(fileroot);
 		
 		
@@ -164,39 +177,8 @@ public class Jibberish extends JFrame {
 		contentPane.add(sp);
 		editorPane_1.setBounds(450, 39, 640, 860);
 		editorPane_1.setFont(new Font("Arial", Font.PLAIN, 20));
-		/*
-		draftTree.addTreeSelectionListener(new TreeSelectionListener(){
-			public void valueChanged(TreeSelectionEvent e) {
-		        TreePath tp = draftTree.getSelectionPath();
-		        
-		        String rootString = tp.getPath().toString();
-		        String outString;
-		        
-				rootString = rootString.substring(1, rootString.length()-1);
-				
-				
-				File tp1 = new File(rootString);
-				Scanner in;
-				try {
-					in = new Scanner(new FileReader(rootString)); 
-					if (tp != null) {
-		        	StringBuilder sb = new StringBuilder();
-		        	
-					while(in.hasNext()) {
-					    sb.append(in.next());
-					}
-					in.close();
-					outString = sb.toString();
-					
-					editorPane_1.setText(outString);
-					}
-			
-				} catch (FileNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}}
-		       
-		});*/
+
+		});
 		draftTree.addTreeSelectionListener(new TreeSelectionListener() {
 
             public void valueChanged(TreeSelectionEvent e) {
@@ -215,6 +197,12 @@ public class Jibberish extends JFrame {
                 	        } catch (IOException exp) {
                 	            exp.printStackTrace();
                 	        }
+                		}else {
+                			DefaultTreeModel model = (DefaultTreeModel) draftTree.getModel();
+                			//model.reload(root);
+                			//createChildren(fileroot, root);
+                			
+                			
                 		}
                 	
                 }
@@ -264,9 +252,7 @@ public class Jibberish extends JFrame {
 		
 		newSnippet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				//fix this, man
-				
+
 				//TreePath tp = draftTree.getLastSelectedPathComponent();
 				
 				//if(tp==null) {return;}
@@ -280,13 +266,13 @@ public class Jibberish extends JFrame {
 				}*/
 				
 				System.out.println(snipRoot);
+				draftTree.setName("Draft Tree Name here");
 				newSnippet snip = new newSnippet(snipRoot, draftTree);	
 				
 				snip.frmSnippet.setVisible(true);
 				
-				createChildren(fileroot, root);
+				//createChildren(fileroot, root);
 				
-								
 			
 			}
 			
@@ -354,32 +340,23 @@ public Jibberish(){
 		contentPane.add(newSnippet);
 		contentPane.add(newFolder);
 		
-		
-		
+			
 		JTree draftTree = new JTree();
 		draftTree.setFont(new Font("Tahoma", Font.BOLD, 16));
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane_1.addTab("Draft", null, draftTree, null);
-		
-		
-		
+		tabbedPane_1.addTab("Draft", null, draftTree, null);	
 		
 		
 		JEditorPane editorPane_1 = new JEditorPane();
 		JScrollPane sp = new JScrollPane(editorPane_1);
-		
-		
+			
 		
 		sp.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		sp.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 		sp.getVerticalScrollBar();
 		sp.setBounds(350,39,720,600);
 		contentPane.add(sp);
-		editorPane_1.setBounds(350, 39, 720, 600);
-		
-		
-		
-		
+		editorPane_1.setBounds(350, 39, 720, 600);	
 		
 	}
 }
