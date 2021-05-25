@@ -21,6 +21,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.JFileChooser;
+import javax.swing.tree.TreePath;
 
 public class newSnippet {
     
@@ -124,13 +125,18 @@ public class newSnippet {
 		btnNewSnippet.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String snippetName = snipName.getText();
-				String rootString = root.getPath().toString();
+				
+				
+				String rootString = root.toString();
+				
+				System.out.println("ROOT STRING"+rootString);
 				//rootString = rootString.substring(1, rootString.length()-1);
 				File newSnippet = new File(rootString+File.separator+snippetName+".txt");
 				System.out.println(rootString);
 				
 				DefaultTreeModel model = (DefaultTreeModel) tree.getModel();
 				DefaultMutableTreeNode root = (DefaultMutableTreeNode) model.getRoot();
+				
 				
 				newSnippet.getParentFile().mkdirs();
 			
@@ -144,7 +150,9 @@ public class newSnippet {
 					//tree.repaint();
 					
 					root.add(new DefaultMutableTreeNode(rootString+File.separator+snippetName+".txt"));
+					
 					tree.updateUI();
+					
 					
 					frmSnippet.dispose();
 					
