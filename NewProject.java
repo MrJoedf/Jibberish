@@ -132,6 +132,7 @@ public class NewProject extends JFrame {
 		btnNewButton_1.setFont(new Font("Kristen ITC", Font.BOLD, 11));
 		btnNewButton_1.setBounds(130, 59, 89, 23);
 		contentPane.add(btnNewButton_1);
+		
 
 	
 	}}	
