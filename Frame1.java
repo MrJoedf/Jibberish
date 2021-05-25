@@ -55,6 +55,7 @@ public class Frame1 {
 		frmJibberish.getContentPane().setFont(new Font("Kristen ITC", Font.BOLD, 28));
 		frmJibberish.getContentPane().setLayout(null);
 		
+	
 		
 		JLabel lblJibberish = new JLabel("JIBBERISH v.02");
 		lblJibberish.setBounds(0, 0, 476, 51);
@@ -108,19 +109,22 @@ public class Frame1 {
 				    chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				    chooser.setAcceptAllFileFilterUsed(false);
 
+				    //	System.out.println(chooser.getSelectedFile());
 				    if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 				      System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
 				      System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
 				    } else {
 				      System.out.println("No Selection ");
 				    }
-				
+				    	
 				    String pDirectory = chooser.getSelectedFile().toString();
-				    
+				    File temp = new File(pDirectory);
+				    pDirectory = temp.getAbsolutePath().toString();
 				    Jibberish jibberish = new Jibberish(pDirectory, false);
+				    
 				    jibberish.setVisible(true);
 				    jibberish.setExtendedState(JFrame.MAXIMIZED_BOTH);
-				    jibberish.setTitle(pDirectory);
+				    jibberish.setTitle(chooser.getSelectedFile().getName() + " - Jibberish");
 			}
 		});
 		frmJibberish.getContentPane().add(btnExistingProject);
